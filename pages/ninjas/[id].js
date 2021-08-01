@@ -1,3 +1,4 @@
+import styles from '../../styles/products.module.css'
 export const getStaticPaths = async () => {
     const res = await fetch('https://fakestoreapi.com/products/');
     const data = await res.json();
@@ -15,8 +16,9 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
     const id = context.params.id;
-    const res = await fetch('https://fakestoreapi.com/products/' + id);
-    const data = await res.json();
+    const res = await fetch('https://fakestoreapi.com/products/' + id)
+    .then(res=>res.json())
+    .then(json=>console.log(json))
 
     return {
         props: { ninja: data }
@@ -25,11 +27,13 @@ export const getStaticProps = async (context) => {
 
 const Details = ({ ninja }) => {
     return (
-      <div>
-        <h1>{ ninja.title }</h1>
+      <div className={styles.products}>
         <p>{ ninja.price }</p>
-        <p>{ ninja.description }</p>
+        <p>Helo</p>
+       
       </div>
+     
+
     );
   }
  
